@@ -1,5 +1,7 @@
 # team02-s22-5pm-2
 
+[![codecov](https://codecov.io/gh/ucsb-cs156-s22/team02-s22-5pm-2/branch/main/graph/badge.svg?token=HT8AKyW4Kh)](https://codecov.io/gh/ucsb-cs156-s22/team02-s22-5pm-2)
+
 * Production: <https://s22-5pm-2-team02.herokuapp.com>
 * QA: <https://s22-5pm-2-team02-qa.herokuapp.com>
 
