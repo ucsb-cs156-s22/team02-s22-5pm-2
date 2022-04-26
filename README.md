@@ -1,6 +1,7 @@
 # team02-s22-5pm-2
 
-* <https://s22-5pm-2-team02.herokuapp.com>
+* Production: <https://s22-5pm-2-team02.herokuapp.com>
+* QA: <https://s22-5pm-2-team02-qa.herokuapp.com>
 
 # Setup before running application
 
