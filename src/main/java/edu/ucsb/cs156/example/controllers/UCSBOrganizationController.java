@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,7 +42,7 @@ public class UCSBOrganizationController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
     public UCSBOrganization getById(
-            @ApiParam("code") @RequestParam String orgCode) {
+            @ApiParam("orgCode") @RequestParam String orgCode) {
         UCSBOrganization organization = ucsbOrganizationRepository.findById(orgCode)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
         return organization;
@@ -94,6 +92,7 @@ public class UCSBOrganizationController {
         UCSBOrganization organization = ucsbOrganizationRepository.findById(orgCode)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
     
+        organization.setOrgCode(incoming.getOrgCode());
         organization.setOrgTranslationShort(incoming.getOrgTranslationShort());
         organization.setOrgTranslation(incoming.getOrgTranslation());
         organization.setInactive(incoming.getInactive());
