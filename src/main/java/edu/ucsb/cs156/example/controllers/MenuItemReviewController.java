@@ -43,4 +43,32 @@ public class MenuItemReviewController extends ApiController {
         return reveiws;
     }
 
+    @ApiOperation(value = "Create a new menu item review")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/post")
+    public MenuItemReview postMenuItemReview(
+            @ApiParam("code") @RequestParam long code,
+            @ApiParam("reviewerEmail") @RequestParam String reviewerEmail,
+            @ApiParam("stars") @RequestParam int stars,
+            @ApiParam("dateReviewed (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateReviewed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateReviewed,
+            @ApiParam("comments") @RequestParam String comments)
+            throws JsonProcessingException {
+
+        // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        // See: https://www.baeldung.com/spring-date-parameters
+
+        log.info("dateReviewed={}", dateReviewed);
+
+        MenuItemReview menuItemReview = new MenuItemReview();
+        menuItemReview.setCode(code);
+        menuItemReview.setReviewerEmail(reviewerEmail);
+        menuItemReview.setStars(stars);
+        menuItemReview.setDateReviewed(dateReviewed);
+        menuItemReview.setComments(comments);
+
+        MenuItemReview savedMenuItemReview = MenuItemReviewRepository.save(menuItemReview);
+
+        return savedMenuItemReview;
+    }
+
 }
