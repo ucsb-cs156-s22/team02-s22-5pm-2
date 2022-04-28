@@ -40,7 +40,7 @@ public class MenuItemReviewController extends ApiController {
     @GetMapping("/all")
     public Iterable<MenuItemReview> allUCSBDates() {
         Iterable<MenuItemReview> reviews = menuItemReviewRepository.findAll();
-        return reveiws;
+        return reviews;
     }
 
     @ApiOperation(value = "Create a new menu item review")
@@ -66,7 +66,7 @@ public class MenuItemReviewController extends ApiController {
         menuItemReview.setDateReviewed(dateReviewed);
         menuItemReview.setComments(comments);
 
-        MenuItemReview savedMenuItemReview = MenuItemReviewRepository.save(menuItemReview);
+        MenuItemReview savedMenuItemReview = menuItemReviewRepository.save(menuItemReview);
 
         return savedMenuItemReview;
     }
