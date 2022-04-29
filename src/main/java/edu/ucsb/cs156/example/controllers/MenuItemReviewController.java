@@ -34,7 +34,7 @@ public class MenuItemReviewController extends ApiController {
 
     @Autowired
     MenuItemReviewRepository menuItemReviewRepository;
-
+    // {GET} All into a JSON [index action]
     @ApiOperation(value = "List all menu item reviews")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
@@ -42,7 +42,7 @@ public class MenuItemReviewController extends ApiController {
         Iterable<MenuItemReview> reviews = menuItemReviewRepository.findAll();
         return reviews;
     }
-
+    // {POST} Create a new menu item [create action]
     @ApiOperation(value = "Create a new menu item review")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
@@ -70,5 +70,7 @@ public class MenuItemReviewController extends ApiController {
 
         return savedMenuItemReview;
     }
+
+    
 
 }
