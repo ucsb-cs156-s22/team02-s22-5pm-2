@@ -57,6 +57,12 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(200)); // logged
         }
 
+        @Test
+        public void logged_out_users_cannot_get_by_id() throws Exception {
+                mockMvc.perform(get("/api/MenuItemReview?id=7"))
+                                .andExpect(status().is(403)); // logged out users can't get by id
+        }
+
         // @Test
         // public void logged_out_users_cannot_get_by_id() throws Exception {
         //         mockMvc.perform(get("/api/ucsbdates?id=7"))
@@ -128,6 +134,48 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("EntityNotFoundException", json.get("type"));
                 assertEquals("MenuItemReview with id 7 not found", json.get("message"));
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void logged_in_user_can_get_all_MenuItemReviews() throws Exception {
+
+                // arrange
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+
+                MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                                        .code(250)
+                                        .reviewerEmail("cgaucho@ucsb.edu")
+                                        .stars(3)
+                                        .dateReviewed(ldt1)
+                                        .comments("Bad")
+                                        .build();
+
+                LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
+
+                MenuItemReview menuItemReview2 = MenuItemReview.builder()
+                                        .code(350)
+                                        .reviewerEmail("cgaucho1@ucsb.edu")
+                                        .stars(5)
+                                        .dateReviewed(ldt2)
+                                        .comments("Good")
+                                        .build();
+
+                ArrayList<MenuItemReview> expectedReviews = new ArrayList<>();
+                expectedReviews.addAll(Arrays.asList(menuItemReview1, menuItemReview2));
+
+                when(menuItemReviewRepository.findAll()).thenReturn(expectedReviews);
+
+                // act
+                MvcResult response = mockMvc.perform(get("/api/MenuItemReview/all"))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+
+                verify(menuItemReviewRepository, times(1)).findAll();
+                String expectedJson = mapper.writeValueAsString(expectedReviews);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
