@@ -59,10 +59,9 @@ public class ArticleController extends ApiController {
     @PostMapping("/post")
     public Article postArticle(
 
-
+            @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded,
             @ApiParam("email") @RequestParam String email,
             @ApiParam("explanation") @RequestParam String explanation,
-            @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateAdded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded,
             @ApiParam("title") @RequestParam String title,
             @ApiParam("url") @RequestParam String url)
             throws JsonProcessingException {
