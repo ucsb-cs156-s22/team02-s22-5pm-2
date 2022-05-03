@@ -59,16 +59,16 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         return savedMenuItem;
     }
 
-    // @ApiOperation(value = "Get a single menu item")
-    // @PreAuthorize("hasRole('ROLE_USER')")
-    // @GetMapping("")
-    // public UCSBDiningCommonsMenuItem getById(
-    //         @ApiParam("id") @RequestParam Long id) {
-    //     UCSBDiningCommonsMenuItem menuItem = ucsbDiningCommonsMenuItemRepository.findById(id)
-    //             .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
-    //
-    //     return menuItem;
-    // }
+    @ApiOperation(value = "Get a single menu item")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public UCSBDiningCommonsMenuItem getById(
+            @ApiParam("id") @RequestParam Long id) {
+        UCSBDiningCommonsMenuItem menuItem = ucsbDiningCommonsMenuItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, id));
+
+        return menuItem;
+    }
 
     // @ApiOperation(value = "Delete a UCSBDiningCommons")
     // @PreAuthorize("hasRole('ROLE_ADMIN')")
