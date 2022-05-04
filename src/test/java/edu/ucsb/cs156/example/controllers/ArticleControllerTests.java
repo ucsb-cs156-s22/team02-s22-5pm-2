@@ -46,36 +46,36 @@ public class ArticleControllerTests extends ControllerTestCase {
 
         @Test
         public void logged_out_users_cannot_get_all() throws Exception {
-                mockMvc.perform(get("/api/article/all"))
+                mockMvc.perform(get("/api/articles/all"))
                                 .andExpect(status().is(403)); // logged out users can't get all
         }
 
         @WithMockUser(roles = { "USER" })
         @Test
         public void logged_in_users_can_get_all() throws Exception {
-                mockMvc.perform(get("/api/article/all"))
+                mockMvc.perform(get("/api/articles/all"))
                                 .andExpect(status().is(200)); // logged
         }
 
         @Test
         public void logged_out_users_cannot_get_by_id() throws Exception {
-                mockMvc.perform(get("/api/article?id=7"))
+                mockMvc.perform(get("/api/articles?id=7"))
                                 .andExpect(status().is(403)); // logged out users can't get by id
         }
 
-        // Authorization tests for /api/article/post
+        // Authorization tests for /api/articles/post
         // (Perhaps should also have these for put and delete)
 
         @Test
         public void logged_out_users_cannot_post() throws Exception {
-                mockMvc.perform(post("/api/article/post"))
+                mockMvc.perform(post("/api/articles/post"))
                                 .andExpect(status().is(403));
         }
 
         @WithMockUser(roles = { "USER" })
         @Test
         public void logged_in_regular_users_cannot_post() throws Exception {
-                mockMvc.perform(post("/api/article/post"))
+                mockMvc.perform(post("/api/articles/post"))
                                 .andExpect(status().is(403)); // only admins can post
         }
 
@@ -191,7 +191,7 @@ public class ArticleControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/article/post?dateAdded=2022-01-03T00:00:00&email=stringEMAIL1&explanation=stringEXP1&title=stringTitle1&url=stringURL1")
+                                post("/api/articles/post?dateAdded=2022-01-03T00:00:00&email=stringEMAIL1&explanation=stringEXP1&title=stringTitle1&url=stringURL1")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
