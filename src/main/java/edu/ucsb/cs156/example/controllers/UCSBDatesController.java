@@ -58,7 +58,6 @@ public class UCSBDatesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public UCSBDate postUCSBDate(
-        
             @ApiParam("quarterYYYYQ") @RequestParam String quarterYYYYQ,
             @ApiParam("name") @RequestParam String name,
             @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime)
